@@ -36,6 +36,14 @@ class AutoDictList(dict):
         return value
 
 
+class DotDict(dict):
+    # If the attribut is not found in the usual places try the dict itself
+    def __getattr__(self, key):
+        if key.startswith('__'):
+            return super(DotDict, self).__getattr__(key)
+        return self[key]
+
+
 class AutoDict(dict):
     _closed = False
 
